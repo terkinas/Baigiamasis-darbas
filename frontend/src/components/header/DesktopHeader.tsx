@@ -11,6 +11,7 @@ import { FaInstagram } from "react-icons/fa";
 
 import dynamic from 'next/dynamic';
 import Link from "next/link";
+import ClaimRewardButton from "./ClaimRewardButton";
 
 const BalanceSquared = dynamic(() => import('../ui/balances/BalanceSquared'), {
   ssr: false,
@@ -52,7 +53,8 @@ export default function DesktopHeader() {
           {/* <Button variant="secondary" size="default" className="h-10">Deposit</Button> */}
           <DepositButton />
           {/* <Button variant="default" size="default" className="h-10 bg-custom-green-500 text-custom-gray-900">Withdraw</Button> */}
-          <WithdrawButton />
+   
+          <ClaimRewardButton />
 
           <Button variant="secondary" size="default" className="h-10 w-10 p-0 flex justify-center items-center text-base"><AiOutlineSwap /></Button>
           

@@ -12,6 +12,7 @@ export interface UserContextProps {
     increaseUserBalance: (user: IClientUser ,balance: number) => void;
     signIn: (user: IClientUser) => void;
     signOut: () => void;
+    requestMe: () => void;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -63,7 +64,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, signIn, updateUser, increaseUserBalance, signOut }}>
+        <UserContext.Provider value={{ user, signIn, updateUser, increaseUserBalance, signOut, requestMe }}>
             {children}
         </UserContext.Provider>
     );

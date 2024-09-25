@@ -2,7 +2,9 @@
 
 import { useSocket } from "@/hooks/useSocket";
 import { getRecentLiveChatMessages } from "@/lib/clientRequests";
+import { avatarUrls } from "@/lib/config";
 import { IClientMessage } from "@/types/client/message.interface";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function LiveChatMessages() {
@@ -69,9 +71,22 @@ export default function LiveChatMessages() {
 
                 {Array.isArray(messages) && messages.map((message: IClientMessage, index: number) => (
 
+
+
+
+
                     <li key={index}>
                         <div className="flex gap-2 items-start">
-                            <div className="w-10 min-w-10 h-10 rounded bg-custom-gray-500"></div>
+                            <div className="w-10 min-w-10 h-10 rounded bg-custom-gray-500">
+                                <Image
+                                    src={`http://localhost:8000/${avatarUrls[message.user.avatarId.toString()]}`}
+                                    // src={avatarUrls[message.user.avatarId.toString()]}
+                                    alt="avatar"
+                                    width={40}
+                                    height={40}
+                                    className="w-full h-full object-contain rounded"
+                                />
+                            </div>
                             <div>
                                 <p className="text-xs font-semibold text-custom-gray-100">{message.user.username}</p>
                                 <p className="text-sm text-custom-gray-400">{message.content}</p>

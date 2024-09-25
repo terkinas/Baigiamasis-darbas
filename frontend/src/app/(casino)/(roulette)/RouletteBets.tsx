@@ -3,7 +3,9 @@
 import { useRoulette } from "@/context/games/rouletteContext";
 import { useSocket } from "@/hooks/useSocket";
 import { useUser } from "@/hooks/useUser";
+import { avatarUrls } from "@/lib/config";
 import { IClientBet } from "@/types/client/bet.interface";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { GiTwoCoins } from "react-icons/gi"
 import { GiSpades, GiClover, GiHearts } from "react-icons/gi";
@@ -215,7 +217,24 @@ export default function RouletteBets({ bets, outcome }: { bets: IClientBet[] | n
                                             .map((bet, index) => (
                                                 <li key={index} className={`flex justify-between px-4 text-sm text-custom-gray-400 ${user && user.username == bet.user.username && 'text-white'}`}>
 
-                                                    <div className="flex items-center gap-2"><span className="w-5 h-5 bg-custom-gray-600 block rounded"></span> <p className={`${user && user.username == bet.user.username && 'text-white'}`}>{bet.user.username}</p> </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="w-5 h-5 bg-custom-gray-600 block rounded">
+                                                            {bet && 
+                                                                (
+                                                                    <>
+                                                                    <Image
+                                                                    src={`http://localhost:8000/${avatarUrls[bet.user.avatarId.toString()]}`}
+                                                    
+                                                                    alt="avatar"
+                                                                    width={20}
+                                                                    height={20}
+                                                                    className="w-full h-full object-contain rounded-full"
+                                                                    />
+                                                                    </>
+                                                                )
+                                                            }
+                                                            
+                                                        </span> <p className={`${user && user.username == bet.user.username && 'text-white'}`}>{bet.user.username}</p> </div>
                                                     <p className={`flex gap-2 items-center transition duration-300 ${outcome == 'red' ? 'text-custom-green-500' : outcome !== null && outcome !== 'red' && 'opacity-50'}`}> {(bet.amount / 100).toFixed(2)}</p>
                                                 </li>
                                             ))}
@@ -246,7 +265,23 @@ export default function RouletteBets({ bets, outcome }: { bets: IClientBet[] | n
                                             .slice(0, 10).map((bet, index) => (
                                                 <li key={index} className={`flex justify-between px-4 text-sm text-custom-gray-400 ${user && user.username == bet.user.username && 'text-white'}`}>
 
-                                                    <div className="flex items-center gap-2"><span className="w-5 h-5 bg-custom-gray-600 block rounded"></span> <p>{bet.user.username}</p> </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="w-5 h-5 bg-custom-gray-600 block rounded">
+                                                        {bet && 
+                                                                (
+                                                                    <>
+                                                                    <Image
+                                                                    src={`http://localhost:8000/${avatarUrls[bet.user.avatarId.toString()]}`}
+                                                    
+                                                                    alt="avatar"
+                                                                    width={20}
+                                                                    height={20}
+                                                                    className="w-full h-full object-contain rounded-full"
+                                                                    />
+                                                                    </>
+                                                                )
+                                                            }
+                                                        </span> <p>{bet.user.username}</p> </div>
                                                     <p className={`flex gap-2 items-center transition duration-300 ${outcome == 'green' ? 'text-custom-green-500' : outcome !== null && outcome !== 'green' && 'opacity-50'}`}> {(bet.amount / 100).toFixed(2)}</p>
                                                 </li>
                                             ))}
@@ -276,7 +311,23 @@ export default function RouletteBets({ bets, outcome }: { bets: IClientBet[] | n
                                             .map((bet, index) => (
                                                 <li key={index} className={`flex justify-between px-4 text-sm text-custom-gray-400 ${user && user.username == bet.user.username && 'text-white'}`}>
 
-                                                    <div className="flex items-center gap-2"><span className="w-5 h-5 bg-custom-gray-600 block rounded"></span> <p>{bet.user.username}</p> </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="w-5 h-5 bg-custom-gray-600 block rounded">
+                                                        {bet && 
+                                                                (
+                                                                    <>
+                                                                    <Image
+                                                                    src={`http://localhost:8000/${avatarUrls[bet.user.avatarId.toString()]}`}
+                                                    
+                                                                    alt="avatar"
+                                                                    width={20}
+                                                                    height={20}
+                                                                    className="w-full h-full object-contain rounded-full"
+                                                                    />
+                                                                    </>
+                                                                )
+                                                            }
+                                                            </span> <p>{bet.user.username}</p> </div>
                                                     <p className={`flex gap-2 items-center transition duration-300 ${outcome == 'black' ? 'text-custom-green-500' : outcome !== null && outcome !== 'black' && 'opacity-50'}`}> {(bet.amount / 100).toFixed(2)}</p>
                                                 </li>
                                             ))}

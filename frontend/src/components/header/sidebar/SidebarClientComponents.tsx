@@ -7,6 +7,8 @@ import { AiOutlineUser } from "react-icons/ai";
 import { FaAngleDown } from "react-icons/fa";
 import { useRouter } from "next/navigation"
 import Link from "next/link";
+import Image from "next/image";
+import { avatarUrls } from "@/lib/config";
 
 export function DepositButton() {
 
@@ -15,8 +17,8 @@ export function DepositButton() {
   return (
     <Button onClick={() => {
       router.push('/deposit')
-    }} variant='secondary' className="w-full md:w-fit">
-      Deposit
+    }} variant='secondary' className="w-full md:w-fit whitespace-nowrap">
+      Buy coins
     </Button>
   );
 }
@@ -44,7 +46,22 @@ export function SignInButton() {
       <Link href="/profile" className="text-sm text-custom-gray-400 bg-custom-gray-500 hover:bg-custom-gray-600 focus:ring-1 focus:outline-none rounded text-center dark:bg-custom-gray-600
       h-10 w-full md:w-fit p-0 flex justify-between items-center text-base px-2 gap-2 ">
 
-        <div className="bg-custom-gray-700 min-w-7 h-7 flex justify-center items-center rounded"><AiOutlineUser  /></div>
+        <div className="bg-custom-gray-700 min-w-7 h-7 flex justify-center items-center rounded">
+
+                                                         
+        <Image
+          src={`http://localhost:8000/${avatarUrls[user.avatarId.toString()]}`}
+
+          alt="avatar"
+          width={80}
+          height={80}
+          className="w-full h-full object-contain rounded"
+        />                                  
+                                                                   
+                                                         
+
+        {/* <AiOutlineUser  /> */}
+        </div>
         
         <div className="flex flex-col justify-center items-start w-full gap-1">
             <h4 className="text-xs"><p className="text-white"> {user?.username}</p></h4>

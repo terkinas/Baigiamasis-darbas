@@ -164,3 +164,38 @@ export async function withdrawBitcoinFromBalance(amount: number, address: string
 
     return response.data
 }
+
+export async function changeUserPassword(oldPassword: string, newPassword: string) {
+    const response = await api.post('/user/me/password', {
+        oldPassword: oldPassword,
+        newPassword: newPassword
+    })
+
+    if (!response) {
+        return new Error('Failed to change password');
+    }
+
+    return response.data
+}
+
+export async function changeUserAvatar(avatarId: string) {
+    const response = await api.post('/user/me/avatar', {
+        avatarId: avatarId
+    })
+
+    if (!response) {
+        return new Error('Failed to change avatar');
+    }
+
+    return response.data
+}
+
+export async function claimCoinsReward() {
+    const response = await api.post('/user/me/claim-reward')
+
+    if (!response) {
+        return new Error('Failed to claim coins reward');
+    }
+
+    return response.data
+}

@@ -81,7 +81,8 @@ export class BetRepository {
                     betType: true,
                     user: {
                         select: {
-                            username: true
+                            username: true,
+                            avatarId: true
                         }
                     },
                     roundId: true

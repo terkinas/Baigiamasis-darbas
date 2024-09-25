@@ -196,3 +196,75 @@ export const userProfileStats = async (req: Request, res: Response) => {
         }
     }
 }
+
+export const changePassword = async (req: Request, res: Response) => {
+    try {
+        const user = req.user as IClientUser;
+
+        if (!user || !user.id) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const { oldPassword, newPassword } = req.body;
+
+        if (!oldPassword || !newPassword) {
+            return res.status(400).json({ message: 'Old password and new password are required' });
+        }
+
+        await userService.changeUserPassword(user.id, oldPassword, newPassword);
+
+        res.json({ message: 'Password changed successfully' });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(400).json({ message: 'Error changing password' });
+        }
+    }
+}
+
+export const changeAvatar = async (req: Request, res: Response) => {
+    try {
+        const user = req.user as IClientUser;
+
+        if (!user || !user.id) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        const avatar = req.body.avatarId;
+
+        if (!avatar) {
+            return res.status(400).json({ message: 'Avatar is required' });
+        }
+
+        await userService.changeAvatar(user.id, avatar);
+
+        res.json({ message: 'Avatar changed successfully' });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(400).json({ message: 'Error changing avatar' });
+        }
+    }
+}
+
+export const claimCoinsReward = async (req: Request, res: Response) => {
+    try {
+        const user = req.user as IClientUser;
+
+        if (!user || !user.id) {
+            return res.status(400).json({ message: 'User not found' });
+        }
+
+        await userService.claimCoinsReward(user.id);
+
+        res.json({ message: 'Coins claimed successfully' });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(400).json({ message: 'Error claiming coins' });
+        }
+    }
+}

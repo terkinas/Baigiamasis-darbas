@@ -30,10 +30,17 @@ const passportConfig = (app: Application) => {
           const passwordsMatch = await bcrypt.compare(password, user.password);
   
           if (passwordsMatch) {
+
+            if (!user.balance) {
+              throw new Error('User balance not found');
+            }
+
+            console.log('BALANCE LAST CLAIMED: ', user.balance.lastClaimed)
   
             return done(null, {
               id: user.id,
               username: user.username,
+              avatarId: user.avatarId,
               balances: user.balance
             } as IClientUser);
           } else {

@@ -4,5 +4,6 @@ export interface IServerUser {
     password: string;
     balance?: {
       amount: number;
+      lastClaimed: number;
     }
 }

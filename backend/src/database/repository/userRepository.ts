@@ -3,31 +3,78 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { IClientUser } from "../../types/client/user.interface"
 import { IServerUser } from "../../types/server/user.interface"
 import prisma from "../../utils/prisma";
+import bcrypt from 'bcrypt';
 
 export class UserRepository {
     async createUser({ username, password }: IServerUser) {
         try {
-            return await prisma.user.create({ 
+
+            console.log('username', username)
+
+            const user = await prisma.user.create({
                 data: {
                     username: username.toLowerCase(),
                     password,
                     balance: {
                         create: {
-                            amount: 0
+                            amount: 0,
                         }
-                    
                     }
                 },
                 select: {
                     id: true,
                     username: true,
+                    avatarId: true,
                     balance: {
                         select: {
-                            amount: true
+                            amount: true,
+                            lastClaimed: true
                         }
                     }
                 }
-             }) as IClientUser;
+            });
+
+            const clientUser: IClientUser = {
+                id: user.id,
+                username: user.username,
+                avatarId: user.avatarId,
+                balance: user.balance
+                    ? {
+                        amount: user.balance.amount,
+                        lastClaimed: user.balance.lastClaimed ? Number(user.balance.lastClaimed) : 0
+                      }
+                    : undefined
+            };
+
+
+            return clientUser;
+
+
+
+            // return await prisma.user.create({ 
+            //     data: {
+            //         username: username.toLowerCase(),
+            //         password,
+            //         balance: {
+            //             create: {
+            //                 amount: 0,
+            //             }
+                    
+            //         }
+            //     },
+            //     select: {
+            //         id: true,
+            //         username: true,
+            //         balance: {
+            //             select: {
+            //                 amount: true,
+            //                 lastClaimed: true
+            //             }
+            //         }
+            //     }
+            //  }) as IClientUser;
+
+
         }
         catch (error) {
             if (error instanceof PrismaClientKnownRequestError && error.code === 'P2002') {
@@ -46,28 +93,65 @@ export class UserRepository {
 
     async getUserById(id: string): Promise<IClientUser>{
         try {
+            // const user = await prisma.user.findUnique({ 
+            //     where: { id }, 
+            //     select: {
+            //         id: true,
+            //         username: true,
+            //         avatarId: true,
+            //         balance: {
+            //             select: {
+            //                 amount: true,
+            //                 lastClaimed: true
+            //             }
+            //         }
+            //     }
+            // }) as IClientUser;
+
             const user = await prisma.user.findUnique({ 
                 where: { id }, 
                 select: {
                     id: true,
                     username: true,
+                    avatarId: true,
                     balance: {
                         select: {
-                            amount: true
+                            amount: true,
+                            lastClaimed: true
                         }
                     }
                 }
-            }) as IClientUser;
-
-            if (user === null) {
-                throw new Error('User not found');
-              }
-          
-              return {
+            });
+            
+            if (!user) {
+                throw new Error("User not found");
+            }
+            
+            // Convert `bigint` to `number`
+            const clientUser: IClientUser = {
                 id: user.id,
                 username: user.username,
+                avatarId: user.avatarId,
                 balance: user.balance
-              };
+                    ? {
+                        amount: user.balance.amount,
+                        lastClaimed: user.balance.lastClaimed ? Number(user.balance.lastClaimed) : 0
+                      }
+                    : undefined
+            };
+            
+            return clientUser;
+
+            // if (user === null) {
+            //     throw new Error('User not found');
+            //   }
+          
+            //   return {
+            //     id: user.id,
+            //     username: user.username,
+            //     avatarId: user.avatarId,
+            //     balance: user.balance
+            //   };
         } catch (error) {
             throw new Error('Error while trying to find user');
         }
@@ -93,10 +177,12 @@ export class UserRepository {
             select: {
                 id: true,
                 username: true,
+                avatarId: true,
                 password: true,
                 balance: {
                     select: {
-                        amount: true
+                        amount: true,
+                        lastClaimed: true
                     }
                 }
             }
@@ -252,6 +338,101 @@ export class UserRepository {
             return { totalBalance, totalWagered, totalWon, totalLost };
         } catch (error) {
             throw new Error('Error while trying to get user profile stats');
+        }
+    }
+
+    async changeUserPassword(userId: string, oldPassword: string, newPassword: string) {
+        try {
+            const user = await prisma.user.findUnique({ where: { id: userId } });
+    
+            if (user === null) {
+                console.log('User not found while password change')
+                throw new Error('User not found');
+            }
+
+            const isOldPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+    
+            if (!isOldPasswordCorrect) {
+                console.log('Old password is incorrect while changing password')
+                throw new Error('Old password is incorrect');
+            }
+
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+    
+            await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    password: hashedPassword
+                }
+            });
+        } catch (error) {
+            throw new Error('Error while trying to change user password');
+        }
+    }
+
+    async createAvatar(url: string) {
+        try {
+            return await prisma.avatar.create({
+                data: {
+                    url
+                }
+            });
+        } catch (error) {
+            throw new Error('Error while trying to create avatar');
+        }
+    }
+
+    async changeAvatar(userId: string, avatarId: number) {
+        try {
+            const avatars = await prisma.avatar.count();
+
+            if (avatarId > avatars && avatarId < 1) {
+                throw new Error('Avatar not found');
+            }
+
+            await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    avatarId
+                }
+            });
+        } catch (error) {
+            throw new Error('Error while trying to change avatar');
+        }
+    }
+
+    async claimCoinsReward(userId: string) {
+        try {
+            const user = await prisma.user.findUnique({ where: { id: userId } });
+
+            if (user === null) {
+                throw new Error('User not found');
+            }
+
+            const currentBalance = await prisma.balance.findUnique({ where: { userId } });
+
+            if (currentBalance === null || currentBalance.amount === null || currentBalance.lastClaimed === null) {
+                throw new Error('Balance not found');
+            }
+
+            if (new Date().getTime() - Number(currentBalance.lastClaimed) < 86400000) {
+                throw new Error('Coins reward already claimed');
+            }
+
+            await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    balance: {
+                        update: {
+                            amount: currentBalance.amount + 10000,
+                            lastClaimed: new Date().getTime()
+                        }
+                    }
+                }
+            });
+        } catch (error) {
+            console.log('error', error)
+            throw new Error('Error while trying to claim coins reward');
         }
     }
 }

@@ -3,6 +3,7 @@ export interface IClientBet {
     betType: string;
     user: {
         username: string;
+        avatarId: number | null;
     };
     roundId: number;
 }

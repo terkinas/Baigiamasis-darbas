@@ -15,6 +15,8 @@ export class UserService {
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
 
+            console.log('hashedPassword', hashedPassword)
+
             return await this.userRepository.createUser({ username, password: hashedPassword }) as IClientUser
         }
 
@@ -40,10 +42,17 @@ export class UserService {
                 throw new Error('Password incorrect');
             }
 
+            if (!user.balance) {
+                throw new Error('User balance not found');
+            }
+
             return {
                 id: user.id,
                 username: user.username,
-                balance: user.balance
+                balance: {
+                    amount: user.balance.amount,
+                    lastClaimed: Number(user.balance.lastClaimed)
+                }
             } as IClientUser;
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -114,6 +123,56 @@ export class UserService {
                 throw new Error(error.message);
             } else {
                 throw new Error('Error while trying to find user profile stats');
+            }
+        }
+    }
+
+    async changeUserPassword(userId: string, oldPassword: string, newPassword: string) {
+        try {
+            return await this.userRepository.changeUserPassword(userId, oldPassword, newPassword);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Error while trying to change user password');
+            }
+        }
+    }
+
+    async changeAvatar(userId: string, avatarId: string) {
+        try {
+            if (!avatarId) {
+                throw new Error('Invalid avatar id');
+            }
+
+            const numericAvatarId = Number(avatarId);
+
+            // Check if the conversion was successful
+            if (isNaN(numericAvatarId) || !Number.isFinite(numericAvatarId)) {
+                throw new Error('Avatar ID must be a valid number');
+            }
+
+
+
+
+            return await this.userRepository.changeAvatar(userId, numericAvatarId);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Error while trying to change user avatar');
+            }
+        }
+    }
+
+    async claimCoinsReward(userId: string) {
+        try {
+            return await this.userRepository.claimCoinsReward(userId);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Error while trying to claim coins reward');
             }
         }
     }

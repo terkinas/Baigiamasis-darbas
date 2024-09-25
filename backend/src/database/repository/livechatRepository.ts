@@ -16,13 +16,22 @@ export class LivechatRepository {
                     createdAt: true,
                     user: {
                         select: {
-                            username: true
+                            username: true,
+                            avatarId: true
                         }
                     }
                 }
             })
 
-            return messages;
+            return messages.map(message => ({
+                content: message.content,
+                createdAt: message.createdAt,
+                user: {
+                    username: message.user.username,
+                    avatarId: message.user.avatarId // This can be number or null
+                }
+            })) as IClientMessage[];
+
         } catch (error) {
             console.error('Error while getting recent messages:', error);
             if (error instanceof Error) {
@@ -43,13 +52,25 @@ export class LivechatRepository {
                     createdAt: true,
                     user: {
                         select: {
-                            username: true
+                            username: true,
+                            avatarId: true
                         }
                     }
                 }
             });
 
-            return newMessage;
+            // return newMessage;
+
+            return {
+                content: newMessage.content,
+                createdAt: newMessage.createdAt,
+                user: {
+                    username: newMessage.user.username,
+                    avatarId: newMessage.user.avatarId // This can be number or null
+                }
+            } as IClientMessage;
+
+            
         } catch (error) {
             console.error('Error while adding message:', error);
             if (error instanceof Error) {

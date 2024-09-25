@@ -1,4 +1,5 @@
 import prisma from "../src/utils/prisma";
+import { seedAvatars } from "./seeds/avatars";
 import { seedBots } from "./seeds/bots";
 import { seedGames } from "./seeds/games";
 import { seedRounds } from "./seeds/rounds";
@@ -16,10 +17,15 @@ async function main() {
     //     process.exit(1);
     // })
 
-    await seedBots().catch(error => {
-        console.error('Error seeding bots:', error);
+    // await seedBots().catch(error => {
+    //     console.error('Error seeding bots:', error);
+    //     process.exit(1);
+    // });
+
+    await seedAvatars().catch(error => {
+        console.error('Error seeding avatars:', error);
         process.exit(1);
-    });
+    })
 }
 
 main().catch(e => {

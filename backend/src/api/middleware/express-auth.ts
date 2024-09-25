@@ -7,6 +7,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
     if (req.isAuthenticated()) {
         return next();
     }
+    console.log('cia suveikia')
     res.status(401).json({ 
         message: 'Unauthorized',
      });

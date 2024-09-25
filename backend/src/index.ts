@@ -12,6 +12,7 @@ import initializeGamesSetup from './initialization/initializeGamesSetup'
 import socketConfig from './config/socketConfig'
 
 import { initServerInstance } from './config/serverInstance'
+import path from 'path'
 
 const listEndpoints = require('express-list-endpoints')
 
@@ -24,7 +25,10 @@ const StartServer = () => {
         resave: false,
         saveUninitialized: false,
         cookie: {
-          httpOnly: true
+          httpOnly: true,
+          secure: false,
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          sameSite: 'none'
         },
     })
 
@@ -42,9 +46,15 @@ const StartServer = () => {
     const routes = listEndpoints(app);
     console.log(routes);
 
+    // serve avatar images
+    app.use('/avatars', express.static(path.join(__dirname, 'public/avatars')));
+    console.log(path.join(__dirname, 'public/uploads/'));
+    console.log('HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', path.join(__dirname, 'public/uploads'))
+    console.log(path.join(__dirname, 'public/uploads/'));
 
-    // const HOST = '0.0.0.0';
-    const HOST = '192.168.0.20';
+
+    const HOST = '0.0.0.0';
+    // const HOST = '192.168.0.20';
 
     // if not local
     // const serveris = server.listen(Number(PORT), HOST ,() => {

@@ -123,13 +123,22 @@ export class BotRepository {
                     createdAt: true,
                     user: {
                         select: {
-                            username: true
+                            username: true,
+                            avatarId: true
                         }
                     }
                 }
             });
 
-            return newMessage;
+            return {
+                content: newMessage.content,
+                createdAt: newMessage.createdAt,
+                user: {
+                    username: newMessage.user.username,
+                    avatarId: newMessage.user.avatarId // This can be number or null
+                }
+            } as IClientMessage;
+
         } catch (error) {
             console.error('Error while adding message:', error);
             if (error instanceof Error) {

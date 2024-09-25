@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import {  getWalletsForAdmin, login, logout, me, register, userProfileStats, userRole, userTransactions } from '../controllers/userController';
+import {  changeAvatar, changePassword, claimCoinsReward, getWalletsForAdmin, login, logout, me, register, userProfileStats, userRole, userTransactions } from '../controllers/userController';
 import { isAdmin, isAuthenticated, isNotAuthenticated } from './middleware/express-auth';
-import { withdrawFromWallets } from '../controllers/cryptoController';
 import { userRegistrationLimit } from './middleware/userRegistrationLimit';
 
 const router = Router();
@@ -19,10 +18,12 @@ router.get('/me', isAuthenticated, me)
 router.get('/me/role', isAuthenticated, userRole)
 router.get('/me/transactions', isAuthenticated, userTransactions)
 router.get('/me/stats', isAuthenticated, userProfileStats)
+router.post('/me/password', isAuthenticated, changePassword)
+router.post('/me/avatar', isAuthenticated, changeAvatar)
+
+router.post('/me/claim-reward', isAuthenticated, claimCoinsReward)
 
 router.get('/admin/wallets', isAdmin, getWalletsForAdmin)
 
-// crypto controller use
-router.post('/admin/wallets/withdraw', isAdmin, withdrawFromWallets)
 
 export default router

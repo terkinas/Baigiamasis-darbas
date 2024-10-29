@@ -25,6 +25,23 @@ class LiveChatService {
         }
     
     }
+
+    async getAllMessages() {
+        try {
+            const messages = await this.livechatRepository.allMessages();
+            return messages;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteMessage(id: string) {
+        try {
+            await this.livechatRepository.deleteMessage(id);
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export const liveChatService = new LiveChatService();

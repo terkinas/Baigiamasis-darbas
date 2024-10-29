@@ -79,4 +79,56 @@ export class LivechatRepository {
         }
     }
 
+    async allMessages(): Promise<IClientMessage[] | undefined> {
+        try {
+            const messages = await prisma.message.findMany({
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                select: {
+                    id: true,
+                    content: true,
+                    createdAt: true,
+                    user: {
+                        select: {
+                            username: true,
+                            avatarId: true,
+                        }
+                    }
+                }
+            });
+
+            return messages.map(message => ({
+                id: message.id,
+                content: message.content,
+                createdAt: message.createdAt,
+                user: {
+                    username: message.user.username,
+                    avatarId: message.user.avatarId // This can be number or null
+                }
+            })) as IClientMessage[];
+
+        } catch (error) {
+            console.error('Error while getting all messages:', error);
+            if (error instanceof Error) {
+                throw error;
+            }
+        }
+    }
+
+    async deleteMessage(id: string): Promise<void> {
+        try {
+            await prisma.message.delete({
+                where: {
+                    id: parseInt(id)
+                }
+            });
+        } catch (error) {
+            console.error('Error while deleting message:', error);
+            if (error instanceof Error) {
+                throw error;
+            }
+        }
+    }
+
 }

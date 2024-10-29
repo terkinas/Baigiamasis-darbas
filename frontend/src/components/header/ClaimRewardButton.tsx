@@ -3,6 +3,8 @@
 import { useUser } from "@/hooks/useUser";
 import { claimCoinsReward } from "@/lib/clientRequests";
 import { useEffect, useState } from "react";
+import RewardCountdown from "./CountDownTimer";
+const REWARD_INTERVAL = 24 * 60 * 60 * 1000;
 
 export default function ClaimRewardButton() {
 
@@ -14,29 +16,31 @@ export default function ClaimRewardButton() {
         if (user) {
             console.log(user)
             console.log(user.balance.lastClaimed)
-            setLastClaimedTime(user.balance.lastClaimed);
+            setLastClaimedTime(user.balance.lastClaimed)
         }
     }, [user]);
+
 
     if (!user) {
         return null;
     }
 
-
-    // const now = new Date().getTime(); // Correctly invoking getTime() method
-
-    // // Calculate the last claimed time in milliseconds
-    // const lastClaimedTime = new Date(user.balance.lastClaimed).getTime(); // Ensure it's in milliseconds
-
-    // // Calculate the difference in milliseconds
-    // const differenceInMillis = now - lastClaimedTime; // Correct arithmetic operation
-
-    // // Check if 24 hours have passed (86400000 milliseconds)
-    // const has24HoursPassed = differenceInMillis >= 86400000;
-
     return (
         <button
         onClick={async () => {
+            // Function to calculate the time differenc
+            if (lastClaimedTime == null) {
+                return
+            }
+                const currentTime = new Date().getTime(); // Get current time in ms
+                const lastRewardTime = new Date(lastClaimedTime).getTime(); // Convert last reward timestamp to ms
+                const nextRewardTime = lastRewardTime + REWARD_INTERVAL;
+                let isPending =  nextRewardTime - currentTime;
+              
+                if (isPending > 0) {
+                    return
+                }
+
             let data = await claimCoinsReward()
             
             if (data.message === 'Coins claimed successfully') {
@@ -44,15 +48,14 @@ export default function ClaimRewardButton() {
             }
         }}
         className={`text-sm bg-custom-gray-500 hover:bg-custom-gray-600 focus:ring-1 focus:outline-none rounded text-center dark:bg-custom-gray-600
-        h-10 w-full md:w-fit p-0 flex justify-between items-center text-base px-2 gap-2 whitespace-nowrap
+        h-10 w-full md:w-fit p-0 flex justify-between items-center text-base px-2 md:px-4 gap-2 whitespace-nowrap
         ${lastClaimedTime && 
-        new Date().getTime() - lastClaimedTime >= 86400000 ? 'text-green-500' : 'text-red-500'}
+        new Date().getTime() - lastClaimedTime >= 86400000 ? 'text-green-500' : 'text-custom-gray-400'}
          `}>
 
-            {JSON.stringify(lastClaimedTime)}
-            {lastClaimedTime && `Claim in ${new Date(86400000 - (new Date().getTime() - lastClaimedTime)).toISOString().substr(11, 8)}`}
-          
-            Claim Reward
+        
+
+            <RewardCountdown lastRewardTimestamp={lastClaimedTime ? lastClaimedTime : 0} />
           
         </button>
     )

@@ -3,6 +3,7 @@ import { DepositButton, SignInButton, WithdrawButton } from "./SidebarClientComp
 import SidebarGamesList from "./SidebarGamesList";
 import SidebarLayout from "./SidebarLayout";
 import { FaInstagram } from "react-icons/fa";
+import ClaimRewardButton from "../ClaimRewardButton";
 
 const generalLinks = [
     { name: "Fairness", path: "/fairness" },
@@ -21,7 +22,8 @@ export default function Sidebar() {
                     <div className="flex justify-around gap-2">
                         {/* client component */}
                         <DepositButton />
-                        <WithdrawButton />
+                        {/* <WithdrawButton /> */}
+                        <ClaimRewardButton />
                     </div>
                     {/* client component */}
                     <SignInButton />

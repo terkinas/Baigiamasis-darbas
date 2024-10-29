@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {  changeAvatar, changePassword, claimCoinsReward, getWalletsForAdmin, login, logout, me, register, userProfileStats, userRole, userTransactions } from '../controllers/userController';
+import {  changeAvatar, changePassword, claimCoinsReward, disableUserMessages, getAllTransactions, getUserList, getWalletsForAdmin, login, logout, me, register, userProfileStats, userRole, userTransactions } from '../controllers/userController';
 import { isAdmin, isAuthenticated, isNotAuthenticated } from './middleware/express-auth';
 import { userRegistrationLimit } from './middleware/userRegistrationLimit';
 
@@ -24,6 +24,9 @@ router.post('/me/avatar', isAuthenticated, changeAvatar)
 router.post('/me/claim-reward', isAuthenticated, claimCoinsReward)
 
 router.get('/admin/wallets', isAdmin, getWalletsForAdmin)
+router.get('/admin/users', isAdmin, getUserList)
+router.get('/admin/transactions', isAdmin, getAllTransactions)
+router.post('/admin/messages/disable/:id', isAdmin, disableUserMessages)
 
 
 export default router

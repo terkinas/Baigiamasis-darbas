@@ -1,3 +1,4 @@
+import CookieBanner from "@/components/banner/CookieBanner";
 import PageLayout from "@/components/PageLayout";
 import { ModalProvider } from "@/context/modalContext";
 import { SocketProvider } from "@/context/socketContext";
@@ -17,6 +18,7 @@ export default function CasinoLayout({
             <ModalProvider>
               <PageLayout>
                 {children}
+                <CookieBanner />
               </PageLayout>
             </ModalProvider>
           </WindowProvider>

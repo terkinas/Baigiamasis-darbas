@@ -99,6 +99,16 @@ export async function getWalletsForAdmin(page: number = 1) {
     return response.data.wallets
 }
 
+export async function getUsersForAdmin(page: number = 1) {
+    const response = await api.get(`/user/admin/users?page=${page}`)
+
+    if (!response) {
+        throw new Error('Failed to fetch wallets');
+    }
+
+    return response.data.users
+}
+
 export async function logoutRequest() {
     const response = await api.post('/user/logout')
 
@@ -191,10 +201,54 @@ export async function changeUserAvatar(avatarId: string) {
 }
 
 export async function claimCoinsReward() {
+    
+
     const response = await api.post('/user/me/claim-reward')
 
     if (!response) {
         return new Error('Failed to claim coins reward');
+    }
+
+    return response.data
+}
+
+export async function disableUserMessages(userId: string) {
+
+    
+    const response = await api.post('/user/admin/messages/disable/' + userId)
+
+    if (!response) {
+        return new Error('Failed to disable user messages');
+    }
+
+    return response.data
+}
+
+export async function  getAllMessages() {
+    const response = await api.get('/livechat/messages/all')
+
+    if (!response) {
+        return new Error('Failed to fetch messages');
+    }
+
+    return response.data
+}
+
+export async function deleteMessage(messageId: string) {
+    const response = await api.delete('/livechat/messages/delete/' + messageId)
+
+    if (!response) {
+        return new Error('Failed to delete message');
+    }
+
+    return response.data
+}
+
+export async function getAllTransactions(page: number = 1) {
+    const response = await api.get(`/user/admin/transactions?page=${page}`)
+
+    if (!response) {
+        return new Error('Failed to fetch transactions');
     }
 
     return response.data

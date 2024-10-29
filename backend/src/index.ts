@@ -28,7 +28,6 @@ const StartServer = () => {
           httpOnly: true,
           secure: false,
           maxAge: 1000 * 60 * 60 * 24 * 7,
-          sameSite: 'none'
         },
     })
 
@@ -53,8 +52,10 @@ const StartServer = () => {
     console.log(path.join(__dirname, 'public/uploads/'));
 
 
-    const HOST = '0.0.0.0';
-    // const HOST = '192.168.0.20';
+    // const HOST = '127.0.0.1';
+    // const HOST = '0.0.0.0';
+    const HOST = '192.168.0.20';
+
 
     // if not local
     // const serveris = server.listen(Number(PORT), HOST ,() => {

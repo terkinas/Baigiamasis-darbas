@@ -268,3 +268,63 @@ export const claimCoinsReward = async (req: Request, res: Response) => {
         }
     }
 }
+
+export const disableUserMessages = async (req: Request, res: Response) => {
+    try {
+        const userId = req.params.id as string;
+
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        await userService.disableUserMessages(userId);
+
+        res.json({ message: 'User messages disabled' });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(400).json({ message: 'Error disabling user messages' });
+        }
+    }
+}
+
+export const getUserList = async (req: Request, res: Response) => {
+    try {
+        const page = req.query.page as string;
+
+        if (!page || isNaN(parseInt(page)) || parseInt(page) < 1 || parseInt(page) > 100) {
+            return res.status(400).json({ message: 'Page not found' });
+        }
+
+        const users = await userService.getUserList(page);
+
+        res.json({ users: users });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(400).json({ message: 'Error retrieving user list' });
+        }
+    }
+}
+
+export const getAllTransactions = async (req: Request, res: Response) => {
+    try {
+        const page = req.query.page as string;
+
+        if (!page || isNaN(parseInt(page)) || parseInt(page) < 1 || parseInt(page) > 100) {
+            return res.status(400).json({ message: 'Page not found' });
+        }
+
+        const transactions = await userService.getAllTransactions(page);
+
+        res.json({ transactions: transactions });
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(400).json({ message: 'Error retrieving transactions' });
+        }
+    }
+}

@@ -24,6 +24,7 @@ model User {
   createdAt DateTime @default(now())
 
   email       String?
+  isChatBanned Boolean @default(false)
   avatarId    Int    @default(1)
 
   balance    Balance?

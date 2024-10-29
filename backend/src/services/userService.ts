@@ -177,6 +177,41 @@ export class UserService {
         }
     }
 
+    async disableUserMessages(userId: string) {
+        try {
+            return await this.userRepository.disableUserMessages(userId);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Error while trying to disable user messages');
+            }
+        }
+    }
+
+    async getUserList(page: string) {
+        try {
+            return await this.userRepository.getUserList(page);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Error while trying to get user list');
+            }
+        }
+    }
+
+    async getAllTransactions(page: string) {
+        try {
+            return await this.userRepository.getAllTransactions(page);
+        } catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error('Error while trying to get all transactions');
+            }
+        }
+    }
 }
 
 export const userService = new UserService();

@@ -31,11 +31,11 @@ const passportConfig = (app: Application) => {
   
           if (passwordsMatch) {
 
-            if (!user.balance) {
-              throw new Error('User balance not found');
-            }
+            // if (!user.balance) {
+            //   throw new Error('User balance not found');
+            // }
 
-            console.log('BALANCE LAST CLAIMED: ', user.balance.lastClaimed)
+            // console.log('BALANCE LAST CLAIMED: ', user.balance.lastClaimed)
   
             return done(null, {
               id: user.id,

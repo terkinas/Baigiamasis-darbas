@@ -248,6 +248,12 @@ export class UserRepository {
             const usersWithWallets = await prisma.user.findMany({
                 skip: (parseInt(page) - 1) * 50,
                 take: 50,
+                where: {
+                    role: 'USER',
+                    wallets: {
+                        some: {}
+                    }
+                },
                 select: {
                     id: true,
                     username: true,
@@ -266,7 +272,7 @@ export class UserRepository {
 
                     }
                 },
-            }
+                }
             });
     
             if (usersWithWallets === null || usersWithWallets.length === 0) {
@@ -434,6 +440,92 @@ export class UserRepository {
             console.log('error', error)
             throw new Error('Error while trying to claim coins reward');
         }
+    }
+
+    async disableUserMessages(userId: string) {
+        try {
+            // First, fetch the current isChatBanned status
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+                select: { isChatBanned: true } // Only retrieve the isChatBanned field
+            });
+    
+            if (!user) {
+                throw new Error('User not found');
+            }
+    
+            // Update the isChatBanned field by inverting its current value
+            const updatedUser = await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    isChatBanned: !user.isChatBanned // Invert the value
+                }
+            });
+    
+            return updatedUser;
+        } catch (error) {
+            throw new Error('Error while trying to toggle user chat status');
+        }
+    }
+
+    async getUserList(page: string) {
+        try {
+            const users = await prisma.user.findMany({
+                skip: (parseInt(page) - 1) * 50,
+                take: 50,
+                select: {
+                    id: true,
+                    username: true,
+                    role: true,
+                    isChatBanned: true
+                }
+            });
+
+            if (!users || users.length === 0) {
+                throw new Error('Users not found');
+            }
+
+            return users;
+        } catch (error) {
+            throw new Error('Error while trying to get user list');
+        }
+    }
+
+    async getAllTransactions(page: string) {
+        try {
+            const transactions = await prisma.bet.findMany({
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                skip: (parseInt(page) - 1) * 15,
+                take: 150,
+                select: {
+                    id: true,
+                    user: {
+                        select: {
+                            username: true
+                        }
+                    },
+                    amount: true,
+                    betType: true,
+                    outcome: true,
+                    createdAt: true,
+                    game: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            });
+
+            if (!transactions || transactions.length === 0) {
+                throw new Error('Transactions not found');
+            }
+
+            return transactions;
+        } catch (error) {
+            throw new Error('Error while trying to get all transactions');
+    }
     }
 }
 

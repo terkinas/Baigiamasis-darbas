@@ -34,7 +34,7 @@ export async function seedBots() {
     // });
 
     namesBlacklist.forEach(async (username: string) => {
-        userRepository.createUser({ username, password: 'blacklisted'})
+        botRepository.createBot({ username, password: 'blacklisted'})
     })
 
     botsToSeed.forEach(async (username) => {

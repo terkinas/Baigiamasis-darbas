@@ -48,6 +48,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const requestMe = async () => {
         const meUser = await fetchData("/user/me");
+        console.log('meUser', meUser)
         if (meUser !== undefined) {
             
             setUser(meUser);

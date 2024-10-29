@@ -15,6 +15,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import Image from "next/image";
 import { avatarUrls } from "@/lib/config";
 import { revalidatePath } from "next/cache";
+import { FaCheck } from "react-icons/fa6";
 
 export default function ProfileCard() {
 
@@ -22,6 +23,8 @@ export default function ProfileCard() {
     const { toggleModal, openModal } = useModal()
 
     const [stats, setStats] = useState<any>(null)
+
+    const [isAvatarsButtonActive, setIsAvatarsButtonActive] = useState<boolean>(false)
     const [passwordChanged, setPasswordChanged] = useState<{
         message: string | null
     }>({
@@ -87,7 +90,9 @@ export default function ProfileCard() {
 
                         <div className="flex flex-col gap-2 items-start my-4">
                             <span className="block text-xs text-custom-gray-400">Change avatar</span>
-                            <form action={async (formData: FormData) => {
+                            <form 
+                            className="flex flex-row gap-2 items-end justify-start"
+                            action={async (formData: FormData) => {
                                 const avatar = formData.get('avatar') as string | null;
                                 console.log(avatar)
 
@@ -97,8 +102,6 @@ export default function ProfileCard() {
 
                                 const data = await changeUserAvatar(avatar)
 
-                                console.log(data)
-
                                 if (data.message === 'Avatar changed successfully') {
                                     updateUser({
                                         ...user,
@@ -107,11 +110,11 @@ export default function ProfileCard() {
                                 }
 
                             }}>
-                                        <ul className="grid w-full gap-2 grid-cols-7 md:grid-cols-7">
+                                        <ul className="grid w-full gap-2 grid-cols-5 md:grid-cols-5">
 
                                             {Object.keys(avatarUrls).map((key, index) => (
                                                 <li key={index}>
-                                                    <input type="radio" id={`avatar-${key}`} name="avatar" value={`${key}`} className="hidden peer" required />
+                                                    <input type="radio" id={`avatar-${key}`} name="avatar" value={`${key}`} className="hidden peer" required onChange={() => setIsAvatarsButtonActive(true)} />
                                                     <label htmlFor={`avatar-${key}`} className="inline-flex items-center justify-between w-full text-gray-500 bg-black border border-custom-gray-900 rounded cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-yellow-500 peer-checked:border-yellow-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
                                                         {user && 
                                                                 (
@@ -131,7 +134,8 @@ export default function ProfileCard() {
                                             ))}
                                     </ul>
 
-                                    <button className="text-custom-gray-200 bg-custom-gray-700 mt-1 text-xs p-2 px-4 w-fit rounded hover:bg-custom-gray-800" type="submit">Save avatar</button>
+                                    <button className={` text-custom-gray-200 font-bold bg-custom-gray-700 mt-1 text-xs p-2 px-4 w-fit rounded hover:bg-custom-gray-800
+                                        ${isAvatarsButtonActive ? 'inline' : 'hidden'}`} type="submit" ><FaCheck /></button>
                             </form>
                         </div>
 

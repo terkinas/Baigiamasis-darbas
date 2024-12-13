@@ -50,14 +50,14 @@ const RewardCountdown = ({ lastRewardTimestamp }: {
   return (
     <div className=' max-w-full overflow-hidden'>
       {timeLeft > 0 ? (
-        <p><span className='hidden md:inline'>Next reward available in: </span>
+        <p><span className='hidden md:inline'>Sekanti prizą atsiimti galėsi už: </span>
         <span className='inline md:hidden'>Reward in: </span>
 
             <span className='absolute ml-1'>{formatTime(timeLeft)}</span>
             <span className='invisible'>00:00:10</span>
         </p>
       ) : (
-        <p>Reward available! Claim now!</p>
+        <p>Prizas paruoštas! Atsiimk dabar!</p>
       )}
     </div>
   );

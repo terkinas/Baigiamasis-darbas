@@ -44,14 +44,14 @@ export default function SignInForm() {
     return (
         <form className='flex flex-col text-custom-gray-400 my-8 [&>input]:rounded' onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="username" title="must be longer than 3">
-                Username
+                Vartotojo vardas
             </label>
             <input onClick={(e) => e.stopPropagation()} {...register("username")} className={`h-10 outline-none bg-custom-gray-700 my-1 mb-4 ${errors.username?.message && 'mb-1'} px-4`} id="username"  />
             {errors.username?.message && <p className="text-custom-red-500 text-xs mb-2">{errors.username?.message.toString()}</p>}
 
          
             <label htmlFor="password" title="must be longer than 8">
-                Password
+                Slaptažodis
             </label>
 
 
@@ -59,9 +59,9 @@ export default function SignInForm() {
 
             {error && <p className="text-custom-red-500 text-xs mb-2">{error}</p>}
 
-            <button className='text-xs text-orange-400  mb-4 text-right underline'>Forgot password?</button>
+            <button className='text-xs text-orange-400  mb-4 text-right underline'>Pamiršote slaptažodį?</button>
             {/* {errors.password?.message && <p>{errors.password?.message.toString()}</p>} */}
-            <Button className='mb-6' type="submit" >Sign In </Button>
+            <Button className='mb-6' type="submit" >Prisijungti </Button>
 
             <div className='h-px bg-custom-gray-600'></div>
 

@@ -89,7 +89,7 @@ export default function ProfileCard() {
 
 
                         <div className="flex flex-col gap-2 items-start my-4">
-                            <span className="block text-xs text-custom-gray-400">Change avatar</span>
+                            <span className="block text-xs text-custom-gray-400">Pakeisti avatarą</span>
                             <form 
                             className="flex flex-row gap-2 items-end justify-start"
                             action={async (formData: FormData) => {
@@ -139,10 +139,10 @@ export default function ProfileCard() {
                             </form>
                         </div>
 
-                    <p className="text-sm text-custom-gray-400">Your profile information</p>
+                    <p className="text-sm text-custom-gray-400">Jūsų profilio informacija</p>
 
                     <div className="flex flex-row gap-2 items-center justify-center">
-                        <span className="text-sm text-custom-gray-400 flex flex-row items-center gap-1 bg-custom-gray-800 p-2 rounded">Level <p className="text-custom-green-500">0</p></span>
+                        <span className="text-sm text-custom-gray-400 flex flex-row items-center gap-1 bg-custom-gray-800 p-2 rounded">Lygis <p className="text-custom-green-500">0</p></span>
                         
 
                         <div className="w-full flex flex-col h-full gap-1 items-end">
@@ -163,22 +163,22 @@ export default function ProfileCard() {
                 </div> */}
                 <div className="flex flex-col w-full mx-auto py-3 gap-4 px-4 md:px-8
                                 shadow-lg bg-custom-gray-700 rounded">
-                    <h4 className="flex gap-2 items-center"><IoIosStats className="text-custom-gray-300" />Statistics</h4>
+                    <h4 className="flex gap-2 items-center"><IoIosStats className="text-custom-gray-300" />Statistika</h4>
                     <div className="h-px bg-custom-gray-500 w-full"></div>
 
                     <ul className="w-full flex flex-col gap-2 items-start">
                         <li className="w-full flex flex-row justify-between">
-                            <span className="text-sm text-custom-gray-300">Total wagered</span>
+                            <span className="text-sm text-custom-gray-300">Išviso pastatyta</span>
                             <span className="text-sm text-custom-gray-300 flex gap-1 items-center">{stats.totalWagered / 100} <GiTwoCoins className="text-custom-yellow-500 text-lg" /></span>
                         </li>
 
                         <li className="w-full flex flex-row justify-between">
-                            <span className="text-sm text-custom-gray-300">Wins</span>
+                            <span className="text-sm text-custom-gray-300">Laimeta</span>
                             <span className="text-sm text-custom-gray-300 flex gap-1 items-center">{stats.totalWon / 100} <GiTwoCoins className="text-custom-yellow-500 text-lg" /></span>
                         </li>
 
                         <li className="w-full flex flex-row justify-between">
-                            <span className="text-sm text-custom-gray-300">Losses</span>
+                            <span className="text-sm text-custom-gray-300">Pralošta</span>
                             <span className="text-sm text-custom-gray-300 flex gap-1 items-center">{stats.totalLost / 100} <GiTwoCoins className="text-custom-yellow-500 text-lg" /></span>
                         </li>
                     </ul>
@@ -192,7 +192,7 @@ export default function ProfileCard() {
                 </div> */}
                 <div className="flex flex-col w-full mx-auto py-3 gap-4 px-4 md:px-8
                                 shadow-lg bg-custom-gray-700 rounded">
-                    <h4 className="flex gap-2 items-center"><RiLockPasswordLine  className="text-custom-gray-300" />Change password</h4>
+                    <h4 className="flex gap-2 items-center"><RiLockPasswordLine  className="text-custom-gray-300" />Pakeisti slaptažodį</h4>
                     <div className="h-px bg-custom-gray-500 w-full"></div>
 
                     <form 
@@ -232,14 +232,15 @@ export default function ProfileCard() {
                           }}
                         className="flex flex-col gap-1 
                         [&>input]:bg-custom-gray-900 [&>input]:outline-none [&>input]:p-2 [&>input]:text-sm">
-                        <input type="password" name="oldPassword" placeholder="Old password" />
-                        <input type="password" name="newPassword" placeholder="New password" />
-                        <input type="password" name="confirmPassword" placeholder="Confirm password" />
-                        <p className="text-xs text-custom-gray-400">Please enter your old password, then your new password and confirm it</p>
+                        <input type="password" name="oldPassword" placeholder="Senas slaptažodis" />
+                        <input type="password" name="newPassword" placeholder="Naujas slaptažodis" />
+                        <input type="password" name="confirmPassword" placeholder="Pakartotinas slaptažodis" />
+
+                        <p className="text-xs text-custom-gray-400">Prašome įvesti savo seną slaptažodį, tada naują norimą slaptažodį ir patvirtinkite pakeitimą</p>
 
                         <p className={`text-custom-yellow-500 text-xs`}>{passwordChanged.message}</p>
                         {/* <p className={`text-green-500 text-xs hidden ${passwordChanged.message != null && 'block'}`}>{passwordChanged.message != null && passwordChanged.message }</p> */}
-                        <button className="text-custom-gray-200 bg-custom-gray-900 mt-6 text-sm p-2 px-4 w-fit rounded hover:bg-custom-gray-800" type="submit">Change password</button>
+                        <button className="text-custom-gray-200 bg-custom-gray-900 mt-6 text-sm p-2 px-4 w-fit rounded hover:bg-custom-gray-800" type="submit">Keisti slaptažodį</button>
                     </form>
                 </div>
             </div>
@@ -249,9 +250,9 @@ export default function ProfileCard() {
             {/* logout button */}
             {user && (
                 <div className="w-full bg-custom-gray-700 p-3">
-                    <h4 className=" text-custom-gray-100 flex flex-row gap-1 items-center"><FaShieldAlt /> Authentication </h4>
-                    <p className="text-xs py-2 text-custom-gray-400">If you need to change account, you can log off here</p>
-                    <button onClick={signOut} className="w-full bg-custom-gray-900 p-2 rounded text-sm text-custom-gray-300 flex items-center gap-1 justify-center"> <IoLogOutOutline /> Logout</button>
+                    <h4 className=" text-custom-gray-100 flex flex-row gap-1 items-center"><FaShieldAlt /> Autentifikavimas </h4>
+                    <p className="text-xs py-2 text-custom-gray-400">Jeigu norite pakeisti paskyra, galite atsijungti čia</p>
+                    <button onClick={signOut} className="w-full bg-custom-gray-900 p-2 rounded text-sm text-custom-gray-300 flex items-center gap-1 justify-center"> <IoLogOutOutline /> Atsijungti</button>
                 </div>
             )}
 

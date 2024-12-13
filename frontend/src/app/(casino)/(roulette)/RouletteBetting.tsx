@@ -206,7 +206,7 @@ export default function RouletteBetting({ isOpen, roundId, personalBets, setPers
                                     text-custom-gray-100 flex  items-center justify-between cursor-pointer md:gap-1 bg-gradient-to-tr from-custom-red-500 to-custom-red-400 px-1 md:px-4
                                     hover:opacity-85"> 
                                             
-                                            <p className="flex flex-col md:flex-row items-center justify-center gap-2 "> <GiHearts className=" text-5xl text-custom-gray-900 opacity-50" /> <span className="whitespace-nowrap">Place bet</span></p> 
+                                            <p className="flex flex-col md:flex-row items-center justify-center gap-2 "> <GiHearts className=" text-5xl text-custom-gray-900 opacity-50" /> <span className="whitespace-nowrap">Atlikti statymą</span></p> 
                                             <p className="text-xs whitespace-nowrap md:text-sm ">Win 2x</p>
                                     </div>
 
@@ -214,7 +214,7 @@ export default function RouletteBetting({ isOpen, roundId, personalBets, setPers
                                     text-custom-gray-100 flex  items-center justify-between cursor-pointer md:gap-1 bg-gradient-to-tr from-custom-green-500 to-custom-green-500 hover:to-custom-green-400 px-1 md:px-4
                                     hover:opacity-85"> 
                                             
-                                            <p className="flex flex-col md:flex-row items-center justify-center gap-2 "> <GiClover className=" text-5xl text-custom-gray-900 opacity-50" /> <span  className="whitespace-nowrap">Place bet</span></p> 
+                                            <p className="flex flex-col md:flex-row items-center justify-center gap-2 "> <GiClover className=" text-5xl text-custom-gray-900 opacity-50" /> <span  className="whitespace-nowrap">Atlikti statymą</span></p> 
                                             <p className="text-xs whitespace-nowrap md:text-sm opacity-80">Win 14x</p>
                                     </div>
                                     
@@ -222,7 +222,7 @@ export default function RouletteBetting({ isOpen, roundId, personalBets, setPers
                                     <div onClick={() => handleBet('black')} className="w-full flex-col md:flex-row py-4 h-fit md:h-full bg-custom-gray-600 rounded transition duration-150
                                     text-custom-gray-100 flex  items-center justify-between cursor-pointer md:gap-1 bg-gradient-to-tr from-custom-gray-600 to-custom-gray-600 hover:to-custom-gray-500 px-1 md:px-4"> 
                                             
-                                            <p className="flex flex-col md:flex-row items-center justify-center gap-2"> <GiSpades className=" text-5xl text-custom-gray-900 opacity-50" /> <span  className="whitespace-nowrap">Place bet</span></p> 
+                                            <p className="flex flex-col md:flex-row items-center justify-center gap-2"> <GiSpades className=" text-5xl text-custom-gray-900 opacity-50" /> <span  className="whitespace-nowrap">Atlikti statymą</span></p> 
                                             <p className="text-custom-gray-400 text-xs whitespace-nowrap md:text-sm">Win 2x</p>
                                     </div>
                                     

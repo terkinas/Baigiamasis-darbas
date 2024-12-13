@@ -26,17 +26,17 @@ export default function LiveChatForm() {
         // }
 
         if (!user) {
-            setError('Please sign in to send a message')
+            setError('Prisijunkite, norėdami rašyti žinutes')
             return
         }
 
         if (message === "") {
-            setError('Please type in a message')
+            setError('Įrašykite žinutę')
             return
         }
 
         if (message.length > 128) {
-            setError('Message is too long')
+            setError('Žinutė per ilga')
             return
         }
 
@@ -67,7 +67,7 @@ export default function LiveChatForm() {
             <div className="flex justify-between rounded w-full p-1 mb-2 bg-custom-gray-700 text-sm text-custom-gray-100">
 
                 <textarea value={message} maxLength={128} onChange={(e) => setMessage(e.target.value)} onKeyDown={handleKeyDown}
-                placeholder='Type in message...' 
+                placeholder='Įrašykite žinutę...' 
                 className="resize-none h-16 text-area-scrollbar w-full bg-custom-gray-700 text-custom-gray-100 p-2 rounded focus:outline-none" />
 
                 <div className="h-full flex flex-col items-center justify-around">

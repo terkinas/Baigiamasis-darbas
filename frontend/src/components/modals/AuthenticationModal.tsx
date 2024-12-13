@@ -44,7 +44,7 @@ export default function AuthenticationModal() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-custom-gray-100"
                   >
-                    Sign in or create an account.
+                    Prisijunk arba užsiregistruok.
                   </Dialog.Title>
                   <div className="mt-4">
                   <Tab.Group>
@@ -54,7 +54,7 @@ export default function AuthenticationModal() {
                             <Tab as={Fragment}>
                                 {({ selected }) => (
                                     <div className={`w-11/12 cursor-pointer h-5/6 rounded flex items-center justify-center outline-none ${selected && 'text-custom-gray-400 bg-custom-gray-600'}`}>
-                                        <p>Sign in</p>
+                                        <p>Prisijungti</p>
                                     </div>
                                 )}
                             </Tab>
@@ -64,7 +64,7 @@ export default function AuthenticationModal() {
                             <Tab as={Fragment}>
                                 {({ selected }) => (
                                     <div className={`w-11/12 cursor-pointer h-5/6 rounded flex items-center justify-center outline-none ${selected && 'text-custom-gray-400 bg-custom-gray-600'}`}>
-                                        <p>Sign up</p>
+                                        <p>Registruotis</p>
                                     </div>
                                 )}
                             </Tab>

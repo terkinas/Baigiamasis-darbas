@@ -20,12 +20,12 @@ export default function UserNavigation() {
                 <Link className={`w-full px-6 py-2 rounded text-center
                 ${pathname === '/profile' ? 'bg-custom-gray-600' : 'hover:bg-custom-gray-700'}`}
                 href="/profile">
-                    Profile
+                    Paskyra
                 </Link>
                 <Link className={`w-full px-6 py-2 rounded text-center 
                 ${pathname.includes('/transactions') ? ' bg-custom-gray-600 ' : ' hover:bg-custom-gray-700 '}`}
                 href="/profile/transactions">
-                    Transactions
+                    Statymai
                 </Link>
             </ul>
         </div>

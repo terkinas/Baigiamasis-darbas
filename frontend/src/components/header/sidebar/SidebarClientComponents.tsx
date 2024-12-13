@@ -18,7 +18,7 @@ export function DepositButton() {
     <Button onClick={() => {
       router.push('/deposit')
     }} variant='secondary' className="w-full md:w-fit whitespace-nowrap">
-      Buy coins
+      Pirkti žetonus
     </Button>
   );
 }

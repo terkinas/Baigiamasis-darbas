@@ -48,14 +48,14 @@ export default function SignUpForm() {
     return (
         <form className='flex flex-col text-custom-gray-400 my-8 [&>input]:rounded' onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="username" title="must be longer than 3">
-                Userame
+                Vartotojo vardas
             </label>
             <input {...register("username")} className={`h-10 outline-none bg-custom-gray-700 my-1 mb-4 ${errors.username?.message && 'mb-1'} px-4`} id="username"  />
             {errors.username?.message && <p className="text-xs text-custom-red-500 pb-3">{errors.username?.message.toString()}</p>}
 
          
             <label htmlFor="password" title="must be longer than 8">
-                Password
+                Slaptažodis
             </label>
 
             <input {...register("password")} className='h-10 outline-none bg-custom-gray-700 my-1 mb-2 px-4' id="password" type="password" />
@@ -63,7 +63,7 @@ export default function SignUpForm() {
 
 
             <label htmlFor="confirmPassword" title="must match password">
-                Confirm Password
+                Pakartotinas slaptažodis
             </label>
 
             <input {...register("confirmPassword")} className='h-10 outline-none bg-custom-gray-700 my-1 mb-2 px-4' 
@@ -77,7 +77,8 @@ export default function SignUpForm() {
 
             <label className={`mb-6 ${errors.agreement?.message && 'mb-1'} flex items-center `}>
                 <input type="checkbox" {...register('agreement')} />
-                <p className='ml-2 text-xs'>I attest that I am at least 18 years old and have read and agree with the Terms of Service.</p>
+                {/* <p className='ml-2 text-xs'>I attest that I am at least 18 years old and have read and agree with the Terms of Service.</p> */}
+                <p className='ml-2 text-xs'>Aš užtikrinu, kad man yra virš 18 metų, kad perskaičiau ir sutinku su platformos taisyklėmis </p>
             </label>
             {errors.agreement?.message && <p className="text-xs text-custom-red-500 pb-4">{errors.agreement?.message.toString()}</p>}
 
@@ -88,7 +89,7 @@ export default function SignUpForm() {
             {/* <button className='text-xs text-custom-orange  mb-4 text-right underline'>Forgot password?</button> */}
             
             {/* {errors.password?.message && <p>{errors.password?.message.toString()}</p>} */}
-            <Button className='mb-6' type="submit" >Sign In </Button>
+            <Button className='mb-6' type="submit" >Registruotis </Button>
 
             <div className='h-px bg-custom-gray-600'></div>
 

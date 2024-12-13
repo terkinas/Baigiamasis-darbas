@@ -19,7 +19,7 @@ export default function DesktopHeaderGamesButton() {
             <Menu as="div" className="relative inline-block text-left z-50">
                 <div>
                 <Menu.Button className="h-10 bg-custom-gray-500 px-4 flex items-center gap-1 text-sm hover:bg-custom-gray-600 cursor-pointer rounded" >
-                        Games
+                        Žaidimai
                         <FaAngleDown />
                 </Menu.Button>
                 </div>

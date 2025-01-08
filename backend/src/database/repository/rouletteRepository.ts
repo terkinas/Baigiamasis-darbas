@@ -234,6 +234,15 @@ export class RouletteRepository {
             await Promise.all(Object.entries(userTotalAmounts).map(([userId, totalAmount]) => {
                 const multiplier = round.outcome === 'green' ? 14 : 2;
                 const totalIncrement = totalAmount * multiplier;
+
+                prisma.user.update({
+                    where: { id: userId },
+                    data: {
+                        xp: {
+                            increment: multiplier * (0.0001 * totalIncrement)
+                        }
+                    }
+                });
             
                 return prisma.balance.update({
                     where: { userId },

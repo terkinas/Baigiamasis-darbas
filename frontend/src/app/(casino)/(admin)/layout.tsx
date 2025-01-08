@@ -17,13 +17,13 @@ export default function AdminLayout({
     const pathname = usePathname();
 
     useEffect(() => {
-        
+        console.log('welcome to admin layout')
         fetchUserRole()
     }, []);
 
     const fetchUserRole = async () => {
         const response = await getUserRole()
-        
+        console.log('response', response)
         if (response === 'ADMIN') {
             setIsAdmin(true)
         } else if (response === 'USER') {

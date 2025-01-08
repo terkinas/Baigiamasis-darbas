@@ -16,6 +16,9 @@ import { IClientBet } from "@/types/client/bet.interface";
 import RouletteMiniHistory from "./RouletteMiniHistory";
 // import NewRouletteWheel from "./NewRouletteWheel"
 import RouletteWheel from "./RouletteWheel"
+import RouletteRoundedWheel from "./RouletteRoundedWheel";
+import { FaExchangeAlt } from "react-icons/fa";
+import { MdOutlineDesignServices } from "react-icons/md";
 
 // const RouletteWheel = dynamic(() => import('./RouletteWheel'), { 
 //     // loading: () => <p className="flex flex-1 h-full items-center justify-center text-white overflow-y-h animate-spin"><AiOutlineLoading /></p>,
@@ -50,6 +53,8 @@ export default function RouletteGame() {
     const [previousRoundId, setPreviousRoundId] = useState<number | null>(null)
     const [waitTime, setWaitTime] = useState<number | null>(null)
     // const [user, setUser] = useState<IClientUser | null>()
+
+    const [classicDesign, setClassicDesign] = useState<boolean>(true)
 
     const progressBarRef = useRef<HTMLDivElement>(null);
 
@@ -208,6 +213,8 @@ export default function RouletteGame() {
     
     return (
         <>
+            <button className="text-left flex items-center text-custom-gray-400 gap-1 text-sm font-light hover:text-custom-gray-200" onClick={() => setClassicDesign(!classicDesign)}><MdOutlineDesignServices /> {classicDesign ? 'Klasikinis' : 'Linijinis'} dizainas</button>
+
             {/* roulette history */}
             <RouletteMiniHistory history={history} />
 
@@ -223,11 +230,24 @@ export default function RouletteGame() {
                 </div>
             </div>
 
-            <RouletteWheel 
+            {/* <RouletteWheel
             roundId={roundId} 
             outcomeNumber={outcomeNumber} 
             setOutcomeNumber={setOutcomeNumber} 
-            updatedAt={updatedAt} />
+            updatedAt={updatedAt} /> */}
+
+            {classicDesign ? <RouletteRoundedWheel
+            roundId={roundId} 
+            outcomeNumber={outcomeNumber} 
+            setOutcomeNumber={setOutcomeNumber} 
+            updatedAt={updatedAt} /> : 
+            <RouletteWheel
+            roundId={roundId} 
+            outcomeNumber={outcomeNumber} 
+            setOutcomeNumber={setOutcomeNumber} 
+            updatedAt={updatedAt} />}
+
+            
 
             <RouletteBetting 
             isOpen={isOpen} 

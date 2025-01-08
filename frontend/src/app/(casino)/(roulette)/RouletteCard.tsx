@@ -16,7 +16,7 @@ export default function NewRouletteCard({ isCurrent, cardIndex}: { isCurrent: bo
     const isGreen = rouletteNumbers[number] === 0;
 
     return (
-        <li className={`roulette-card p-1 md:p-2  transition duration-300 ${isCurrent ? 'bg-custom-gray-500' : 'bg-custom-gray-600'}`}>
+        <li className={`roulette-card p-1 md:p-2  transition duration-300 ${isCurrent ? 'bg-custom-gray-300' : 'bg-custom-gray-600'}`}>
             <div className={` w-full h-full rounded shadow-2xl shadow-[inset_0_0px_24px_rgba(0,0,0,0.7)]
             flex items-center justify-center text-2xl md:text-5xl text-custom-gray-900 text-opacity-70 font-semibold
                 ${isBlack ? 'bg-custom-gray-600' : 

@@ -78,7 +78,7 @@ export function SignInButton() {
       toggleModal('authentication')
       openModal()
     }} variant='secondary' className="shadow bg-custom-green-500 text-white whitespace-nowrap">
-      Sign In
+      Prisijungti
     </Button>
   );
 }

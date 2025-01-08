@@ -17,10 +17,10 @@ async function main() {
     //     process.exit(1);
     // })
 
-    // await seedBots().catch(error => {
-    //     console.error('Error seeding bots:', error);
-    //     process.exit(1);
-    // });
+    await seedBots().catch(error => {
+        console.error('Error seeding bots:', error);
+        process.exit(1);
+    });
 
     await seedAvatars().catch(error => {
         console.error('Error seeding avatars:', error);

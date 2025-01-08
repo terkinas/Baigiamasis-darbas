@@ -47,9 +47,6 @@ const StartServer = () => {
 
     // serve avatar images
     app.use('/avatars', express.static(path.join(__dirname, 'public/avatars')));
-    console.log(path.join(__dirname, 'public/uploads/'));
-    console.log('HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', path.join(__dirname, 'public/uploads'))
-    console.log(path.join(__dirname, 'public/uploads/'));
 
 
     // const HOST = '127.0.0.1';

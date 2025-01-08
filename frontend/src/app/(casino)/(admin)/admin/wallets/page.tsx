@@ -27,7 +27,7 @@ export default function AdminWalletsPage() {
 
 
     useEffect(() => {
-        
+        console.log('welcome to sss')
         if (user) {
             getWallets(pageNumber)
         }
@@ -38,7 +38,6 @@ export default function AdminWalletsPage() {
         if (!user) return
 
         try {
-            
             const response = await getWalletsForAdmin(pageNumber);
 
             

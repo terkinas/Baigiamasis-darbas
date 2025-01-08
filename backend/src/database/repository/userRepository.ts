@@ -337,7 +337,7 @@ export class UserRepository {
     
             // const totalWon = user.bets.filter(bet => bet.outcome === 'win').reduce((acc, bet) => acc + bet.amount, 0);
 
-            const totalWon = user.bets.filter(bet => bet.outcome === bet.betType).reduce((acc, bet) => acc + bet.amount, 0);
+            const totalWon = user.bets.filter(bet => bet.outcome === bet.betType).reduce((acc, bet) => bet.betType == 'green' ? acc + (bet.amount * 14) : acc + bet.amount, 0);
     
             const totalLost = user.bets.filter(bet => bet.outcome !== bet.betType).reduce((acc, bet) => acc + bet.amount, 0);
     

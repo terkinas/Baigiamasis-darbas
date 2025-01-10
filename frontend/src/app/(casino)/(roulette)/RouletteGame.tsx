@@ -19,6 +19,7 @@ import RouletteWheel from "./RouletteWheel"
 import RouletteRoundedWheel from "./RouletteRoundedWheel";
 import { FaExchangeAlt } from "react-icons/fa";
 import { MdOutlineDesignServices } from "react-icons/md";
+import { GiClover, GiHearts, GiSpade, GiSpades } from "react-icons/gi";
 
 // const RouletteWheel = dynamic(() => import('./RouletteWheel'), { 
 //     // loading: () => <p className="flex flex-1 h-full items-center justify-center text-white overflow-y-h animate-spin"><AiOutlineLoading /></p>,
@@ -213,6 +214,13 @@ export default function RouletteGame() {
     
     return (
         <>
+            <div className="-z-10">
+                <GiSpades className=" absolute -rotate-45 top-96 left-96 text-4xl text-custom-gray-400 opacity-[3%] scale-[500%]"  />
+                <GiSpades className=" absolute rotate-[30deg] top-80 left-[470px] translate-x-full text-4xl text-custom-gray-400 opacity-[3%] scale-[150%]"  />
+                <GiHearts className="absolute rotate-[30deg] top-80 right-96 text-4xl text-custom-gray-400 opacity-[3%] scale-[200%]"  />
+                <GiHearts className="absolute -rotate-[30deg] top-96 right-80 text-4xl text-custom-gray-400 opacity-[3%] scale-[100%]"  />
+            </div>
+
             <button className="text-left flex items-center text-custom-gray-400 gap-1 text-sm font-light hover:text-custom-gray-200" onClick={() => setClassicDesign(!classicDesign)}><MdOutlineDesignServices /> {classicDesign ? 'Klasikinis' : 'Linijinis'} dizainas</button>
 
             {/* roulette history */}
@@ -246,6 +254,7 @@ export default function RouletteGame() {
             outcomeNumber={outcomeNumber} 
             setOutcomeNumber={setOutcomeNumber} 
             updatedAt={updatedAt} />}
+
 
             
 

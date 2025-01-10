@@ -33,8 +33,10 @@ export default function RoulettePage() {
           
 
           {/* roulette wheel */}
+
           
           <RouletteGame />
+          
           
 
 

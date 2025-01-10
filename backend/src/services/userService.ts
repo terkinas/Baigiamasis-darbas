@@ -52,7 +52,8 @@ export class UserService {
                 balance: {
                     amount: user.balance.amount,
                     lastClaimed: Number(user.balance.lastClaimed)
-                }
+                },
+                xp: user.xp
             } as IClientUser;
         } catch (error: unknown) {
             if (error instanceof Error) {

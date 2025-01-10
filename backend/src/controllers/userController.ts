@@ -55,7 +55,8 @@ export const login = async (req: Request, res: Response) => {
         let newUser = {
             id: user.id,
             username: user.username,
-            balance: user.balance
+            balance: user.balance,
+            xp: user.xp,
         }
 
         await req.login(newUser, (error) => {
@@ -73,14 +74,6 @@ export const login = async (req: Request, res: Response) => {
         }
     }
 }
-
-// also works without it
-// passportConfig.authenticate('local', {
-//     successRedirect: '/dashboard',
-//     failureRedirect: '/login',
-//     failureFlash: true,
-// })
-
 
 export const logout = async (req: Request, res: Response) => {
     req.logout((err) => err && res.status(400).json({ message: 'Error logging out' }));

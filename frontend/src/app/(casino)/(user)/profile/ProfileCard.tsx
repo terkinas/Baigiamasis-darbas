@@ -16,6 +16,7 @@ import Image from "next/image";
 import { avatarUrls } from "@/lib/config";
 import { revalidatePath } from "next/cache";
 import { FaCheck } from "react-icons/fa6";
+import { request } from "http";
 
 export default function ProfileCard() {
 
@@ -23,6 +24,8 @@ export default function ProfileCard() {
     const { toggleModal, openModal } = useModal()
 
     const [stats, setStats] = useState<any>(null)
+
+    const { requestMe } = useUser() ?? { user: null };
 
     const [isAvatarsButtonActive, setIsAvatarsButtonActive] = useState<boolean>(false)
     const [passwordChanged, setPasswordChanged] = useState<{
@@ -32,6 +35,12 @@ export default function ProfileCard() {
     })
 
     const formRef = useRef<HTMLFormElement>(null);
+
+    useEffect(() => {
+        if (user) {
+            requestMe?.()
+        }
+    }, [])
 
     useEffect(() => {
         if (user) {
@@ -142,14 +151,51 @@ export default function ProfileCard() {
                     <p className="text-sm text-custom-gray-400">Jūsų profilio informacija</p>
 
                     <div className="flex flex-row gap-2 items-center justify-center">
-                        <span className="text-sm text-custom-gray-400 flex flex-row items-center gap-1 bg-custom-gray-800 p-2 rounded">Lygis <p className="text-custom-green-500">0</p></span>
+
+                        
+
+
+                        <span className="text-sm text-custom-gray-400 flex flex-row items-center gap-1 bg-custom-gray-800 p-2 rounded">Lygis <p className="text-custom-green-500"> 
+                            {user.xp && 
+                            (user.xp < 100 ? 'Naujokas' :
+                            user.xp < 250 ? 'Patyręs' :
+                            user.xp < 500 ? 'Žaidėjas' : 'Priklausomas')} 
+                            </p></span>
                         
 
                         <div className="w-full flex flex-col h-full gap-1 items-end">
-                            <span className="w-full bg-custom-gray-500 h-1">
-                                <span className="bg-custom-green-500 h-1 w-[1%] block"></span>
-                            </span>
-                            <span className="text-sm text-custom-gray-400">1 / 100</span>
+
+                            {user.xp != null && 
+                            <>
+                                <span className="w-full bg-custom-gray-500 h-1">
+                                    <span className={`bg-custom-green-500 h-1 block 
+                                    ${
+                                    user.xp < 10 ? `w-[10%]` :
+                                    user.xp < 25 ? `w-[25%]` :
+                                    user.xp < 50 ? `w-[50%]` :
+                                    user.xp < 100 ? `w-[75%]` :
+
+                                    user.xp < 125 ? `w-[10%]` :
+                                    user.xp < 150 ? `w-[25%]` :
+                                    user.xp < 200 ? `w-[50%]` :
+                                    user.xp < 250 ? `w-[75%]` :
+
+                                    user.xp < 275 ? `w-[10%]` :
+                                    user.xp < 325 ? `w-[25%]` :
+                                    user.xp < 375 ? `w-[50%]` :
+                                    user.xp < 500 ? `w-[75%]` :
+                                     'w-[0%]' }`}></span>
+                                </span>
+                            
+                                <span className="text-sm text-custom-gray-400">{Number(user.xp)} / 
+                                {user.xp != null && 
+                                (user.xp < 100 ? '100' :
+                                user.xp < 250 ? '250' :
+                                user.xp < 500 ? '500' : '-')} 
+                                </span>
+                            </>
+                            }
+                            
                         </div>
                     </div>
                 </div>

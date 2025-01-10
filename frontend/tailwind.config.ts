@@ -3,6 +3,12 @@ import type { Config } from "tailwindcss";
 const plugin = require('tailwindcss/plugin')
 
 const config: Config = {
+  safelist: [
+    'w-[10%]',
+    'w-[25%]',
+    'w-[50%]',
+    'w-[100%]',
+  ],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",

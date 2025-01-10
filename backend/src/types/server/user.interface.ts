@@ -5,5 +5,6 @@ export interface IServerUser {
     balance?: {
       amount: number;
       lastClaimed: number;
-    }
+    },
+    xp?: number;
 }

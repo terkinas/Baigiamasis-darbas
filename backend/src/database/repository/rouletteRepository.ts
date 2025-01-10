@@ -235,20 +235,25 @@ export class RouletteRepository {
                 const multiplier = round.outcome === 'green' ? 14 : 2;
                 const totalIncrement = totalAmount * multiplier;
 
-                prisma.user.update({
-                    where: { id: userId },
-                    data: {
-                        xp: {
-                            increment: multiplier * (0.0001 * totalIncrement)
-                        }
-                    }
-                });
+                // prisma.user.update({
+                //     where: { id: userId },
+                //     data: {
+                //         xp: 10
+                //     }
+                // })
             
                 return prisma.balance.update({
                     where: { userId },
                     data: {
                         amount: {
                             increment: totalIncrement
+                        },
+                        user: {
+                            update: {
+                                xp: {
+                                    increment: multiplier + (totalIncrement / 1000) // Replace with the value you want to increment xp by
+                                }
+                            }
                         }
                     }
                 });

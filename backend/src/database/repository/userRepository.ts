@@ -25,12 +25,13 @@ export class UserRepository {
                     id: true,
                     username: true,
                     avatarId: true,
+                    xp: true,
                     balance: {
                         select: {
                             amount: true,
                             lastClaimed: true
                         }
-                    }
+                    },
                 }
             });
 
@@ -38,6 +39,7 @@ export class UserRepository {
                 id: user.id,
                 username: user.username,
                 avatarId: user.avatarId,
+                xp: user.xp ? user.xp : 0,
                 balance: user.balance
                     ? {
                         amount: user.balance.amount,
@@ -119,7 +121,8 @@ export class UserRepository {
                             amount: true,
                             lastClaimed: true
                         }
-                    }
+                    },
+                    xp: true
                 }
             });
             
@@ -132,6 +135,7 @@ export class UserRepository {
                 id: user.id,
                 username: user.username,
                 avatarId: user.avatarId,
+                xp: user.xp ? user.xp : 0,
                 balance: user.balance
                     ? {
                         amount: user.balance.amount,
@@ -184,7 +188,8 @@ export class UserRepository {
                         amount: true,
                         lastClaimed: true
                     }
-                }
+                },
+                xp: true
             }
          });
     }

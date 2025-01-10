@@ -41,7 +41,8 @@ const passportConfig = (app: Application) => {
               id: user.id,
               username: user.username,
               avatarId: user.avatarId,
-              balances: user.balance
+              balances: user.balance,
+              xp: user.xp
             } as IClientUser);
           } else {
             return done(null, false);

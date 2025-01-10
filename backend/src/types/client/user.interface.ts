@@ -5,5 +5,6 @@ export interface IClientUser {
   balance?: {
     amount: number;
     lastClaimed: number;
-  }
+  },
+  xp?: number;
 }
